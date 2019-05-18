@@ -74,7 +74,6 @@ public class RobotAdapter extends RecyclerView.Adapter<RobotAdapter.RobotViewHol
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select an Option");
             menu.add(this.getAdapterPosition(),120, 0, "Update robots");
-            menu.add(this.getAdapterPosition(),121, 1, "Delete robot");
             menu.add(this.getAdapterPosition(),122, 2, "Update robot");
             menu.add(this.getAdapterPosition(),123, 3, "Find by id");
 

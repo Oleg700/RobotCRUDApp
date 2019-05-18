@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -38,7 +40,7 @@ public class ListRobotFragment extends Fragment {
     private Observer mObserver;
     private final String LOG = "ListRobotFragment";
 
-
+//Интерфейс для взаимодействия между фрагментами
     public interface OnMessageSendListener {
         void onMessageSend(String message);
     }
@@ -56,6 +58,21 @@ public class ListRobotFragment extends Fragment {
         mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mMainActivityViewModel.init();
         mObseravable = mMainActivityViewModel.getObservableAllRobots();
+        super.onCreate(savedInstanceState);
+    }
+
+    public ListRobotFragment() {
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_list_robot, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        fab = view.findViewById(R.id.fab);
+
 
         mObserver = new Observer<RobotGetAllResonse>() {
             @Override
@@ -71,32 +88,19 @@ public class ListRobotFragment extends Fragment {
 
             @Override
             public void onError(Throwable e) {
-            Log.e(LOG, e.getMessage());
+                Log.e(LOG, e.getMessage());
             }
 
             @Override
             public void onComplete() {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(adapter);
             }
         };
         mObseravable.subscribe(mObserver);
 
-        super.onCreate(savedInstanceState);
-    }
-
-    public ListRobotFragment() {
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_list_robot, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        fab = view.findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,14 +127,8 @@ public class ListRobotFragment extends Fragment {
                         .commit();
                 displayMessage("List is updated");
                 return true;
-            case 121:
-                int id = adapter.getIdByPosition(item.getGroupId());
-                mMainActivityViewModel.deleteRobotById(id);
-                Toast.makeText(getActivity(), "Robot with id " + id + "is deleted", Toast.LENGTH_SHORT).show();
-                adapter.removeItem(item.getGroupId());
-                return true;
             case 122:
-                id = adapter.getIdByPosition(item.getGroupId());
+                int id = adapter.getIdByPosition(item.getGroupId());
                 messageSendListener.onMessageSend(String.valueOf(id));
                 return true;
             case 123:
@@ -149,4 +147,21 @@ public class ListRobotFragment extends Fragment {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+            int id = adapter.getIdByPosition(viewHolder.getAdapterPosition());
+            mMainActivityViewModel.deleteRobotById(id);
+
+           adapter.removeItem(viewHolder.getAdapterPosition());
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), "Robot with id " + id + "is deleted", Toast.LENGTH_SHORT).show();
+        }
+    };
 }

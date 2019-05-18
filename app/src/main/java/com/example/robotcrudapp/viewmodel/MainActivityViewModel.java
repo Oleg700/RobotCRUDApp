@@ -6,7 +6,8 @@ import com.example.robotcrudapp.repository.RobotRepository;
 import io.reactivex.Observable;
 
 
-public class MainActivityViewModel extends ViewModel {
+public class MainActivityViewModel
+        extends ViewModel {
     private RobotRepository mRepository;
 
     public Observable getObservableAllRobots(){
