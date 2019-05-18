@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="horizontal"
+    tools:context=".fragments.UpdateRobotFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Update Robot"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/txt_robot_name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:hint="Robot name" />
+
+        <EditText
+            android:id="@+id/txt_robot_type"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_robot_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:hint="Robot type" />
+
+        <EditText
+            android:id="@+id/txt_robot_year"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_robot_type"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:hint="Robot year" />
+
+        <Button
+            android:id="@+id/bn_update_robot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_robot_year"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/update"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
