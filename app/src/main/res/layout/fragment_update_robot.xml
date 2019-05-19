@@ -34,6 +34,7 @@
             android:layout_below="@id/text_view"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
             android:hint="Robot name" />
 
         <EditText
@@ -43,6 +44,7 @@
             android:layout_below="@id/txt_robot_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
             android:hint="Robot type" />
 
         <EditText
@@ -52,6 +54,7 @@
             android:layout_below="@id/txt_robot_type"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
             android:hint="Robot year" />
 
         <Button
