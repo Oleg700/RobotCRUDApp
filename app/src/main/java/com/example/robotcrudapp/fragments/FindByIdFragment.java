@@ -3,6 +3,7 @@ package com.example.robotcrudapp.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class FindByIdFragment extends Fragment {
     private Observer mObserver;
     private Observable mObservable;
     private MainActivityViewModel mainActivityViewModel;
-
+    private Robot robot;
 
     public FindByIdFragment() {
     }
@@ -48,6 +49,10 @@ public class FindByIdFragment extends Fragment {
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mainActivityViewModel.init();
 
+        if(savedInstanceState !=null){
+            String robotValues =  savedInstanceState.getString("robot");
+            textView.setText(robotValues);
+        }
 
         mObserver = new Observer<RobotResponse>() {
             @Override
@@ -57,8 +62,8 @@ public class FindByIdFragment extends Fragment {
 
             @Override
             public void onNext(RobotResponse robotResponse) {
-              Robot robot =  robotResponse.getRobot();
-              textView.append(robot.toString());
+              robot =  robotResponse.getRobot();
+              textView.setText(robot.toString());
             }
 
             @Override
@@ -90,4 +95,11 @@ public class FindByIdFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+        if(robot != null)
+        outState.putString("robot", robot.toString() );
+        super.onSaveInstanceState(outState);
+    }
 }
