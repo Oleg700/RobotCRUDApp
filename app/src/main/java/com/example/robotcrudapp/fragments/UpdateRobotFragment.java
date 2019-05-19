@@ -11,13 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.robotcrudapp.R;
+import com.example.robotcrudapp.constants.Constant;
 import com.example.robotcrudapp.model.Robot;
 import com.example.robotcrudapp.viewmodel.MainActivityViewModel;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class UpdateRobotFragment extends Fragment {
     private EditText robotName, robotType, robotYear;
     private Button buttonUpdate;
@@ -42,7 +39,7 @@ public class UpdateRobotFragment extends Fragment {
             public void onClick(View v) {
 
                 Bundle bundle = getArguments();
-                int robotIdSet = Integer.parseInt(bundle.getString("message"));
+                int robotIdSet = Integer.parseInt(bundle.getString(Constant.ROBOT_ID));
                 String robotNameSet = robotName.getText().toString();
                 String robotTypeSet = robotType.getText().toString();
                 int robotYearSet = Integer.parseInt(robotYear.getText().toString());

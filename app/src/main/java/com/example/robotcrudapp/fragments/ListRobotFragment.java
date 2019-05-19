@@ -42,7 +42,7 @@ public class ListRobotFragment extends Fragment {
 
 //Интерфейс для взаимодействия между фрагментами
     public interface OnMessageSendListener {
-        void onMessageSend(String message);
+        void sendRobotIdToUpdateFrag(String message);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class ListRobotFragment extends Fragment {
                 return true;
             case 122:
                 int id = adapter.getIdByPosition(item.getGroupId());
-                messageSendListener.onMessageSend(String.valueOf(id));
+                messageSendListener.sendRobotIdToUpdateFrag(String.valueOf(id));
                 return true;
             case 123:
                 getFragmentManager()

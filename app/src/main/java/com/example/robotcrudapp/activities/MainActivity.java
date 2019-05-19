@@ -1,21 +1,23 @@
 package com.example.robotcrudapp.activities;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.example.robotcrudapp.R;
 import com.example.robotcrudapp.adapter.RobotAdapter;
+import com.example.robotcrudapp.constants.Constant;
 import com.example.robotcrudapp.fragments.ListRobotFragment;
 import com.example.robotcrudapp.fragments.UpdateRobotFragment;
 import com.example.robotcrudapp.model.Robot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ListRobotFragment
     public static FragmentManager fragmentManager;
     private Toolbar toolbar;
     private RobotAdapter adapter;
-    private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements ListRobotFragment
 
     //переопределил данный метод для взамодействия между фрагментами updateFragment и ListRobotFragment
     @Override
-    public void onMessageSend(String message) {
+    public void sendRobotIdToUpdateFrag(String message) {
         Fragment updateFragment = new UpdateRobotFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("message", message);
+        bundle.putString(Constant.ROBOT_ID, message);
         updateFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction().replace(R.id.fragment_container, updateFragment)
@@ -79,21 +81,22 @@ public class MainActivity extends AppCompatActivity implements ListRobotFragment
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
-//в параметрах получаю значение id робота
+
+    //в параметрах получаю значение id робота
     @Override
     public boolean onQueryTextChange(String id) {
         adapter = new RobotAdapter(this, RobotAdapter.getRobotListStatic());
 
         List<Robot> robotList = RobotAdapter.getRobotListStatic();
         List<Robot> listEmpty = new ArrayList<>();
-        for (Robot robot : robotList){
-            if (!id.equals("") &&   String.valueOf(robot.getId()).contains(id) ) {
+        for (Robot robot : robotList) {
+            if (!id.equals("") && String.valueOf(robot.getId()).contains(id)) {
                 listEmpty.add(robot);
 
             }
 
         }
-        if(listEmpty.size() !=0){
+        if (listEmpty.size() != 0) {
             adapter.updateList(listEmpty);
         }
 
