@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.example.robotcrudapp.R;
 import com.example.robotcrudapp.adapter.RobotAdapter;
 import com.example.robotcrudapp.constants.Constant;
+import com.example.robotcrudapp.fragments.FindByIdFragment;
 import com.example.robotcrudapp.fragments.ListRobotFragment;
 import com.example.robotcrudapp.fragments.UpdateRobotFragment;
 import com.example.robotcrudapp.model.Robot;
@@ -56,9 +57,23 @@ public class MainActivity extends AppCompatActivity implements ListRobotFragment
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("Enter id...");
         searchView.setOnQueryTextListener(this);
-
-
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case R.id.action_find_id:
+                FindByIdFragment fragmentFindID = new FindByIdFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragmentFindID).addToBackStack(null);
+                fragmentTransaction.commit();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     //переопределил данный метод для взамодействия между фрагментами updateFragment и ListRobotFragment

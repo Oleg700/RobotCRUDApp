@@ -120,31 +120,13 @@ public class ListRobotFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case 120:
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new ListRobotFragment())
-                        .commit();
-                displayMessage("List is updated");
-                return true;
             case 122:
                 int id = adapter.getIdByPosition(item.getGroupId());
                 messageSendListener.sendRobotIdToUpdateFrag(String.valueOf(id));
                 return true;
-            case 123:
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new FindByIdFragment())
-                        .addToBackStack(null)
-                        .commit();
-
             default:
                 return super.onContextItemSelected(item);
         }
-    }
-
-    private void displayMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
