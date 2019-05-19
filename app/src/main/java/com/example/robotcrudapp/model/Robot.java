@@ -2,11 +2,13 @@ package com.example.robotcrudapp.model;
 
 
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 
 import java.util.Objects;
 
-public class Robot {
+public class Robot implements Parcelable {
 
     private int id;
 
@@ -27,6 +29,28 @@ public class Robot {
         this.type = type;
         this.year = year;
     }
+
+
+    public Robot(Parcel in){
+        id = in.readInt();
+        name = in.readString();
+        type = in.readString();
+        year = in.readInt();
+    }
+
+
+    public static final Creator<Robot> CREATOR = new Creator<Robot>() {
+        @Override
+        public Robot createFromParcel(Parcel source) {
+            return new Robot(source);
+        }
+
+        @Override
+        public Robot[] newArray(int size) {
+            return new Robot[size];
+        }
+    };
+
 
     public int getId() {
         return id;
@@ -78,5 +102,18 @@ public class Robot {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(type);
+        dest.writeInt(year);
     }
 }
