@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="6dp"
     android:layout_marginTop="3dp"
     android:elevation="6dp"
-    app:cardCornerRadius="6dp"
-    android:layout_margin="6dp"
-    android:id="@+id/mCardView"
-    >
+    app:cardCornerRadius="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
         <ImageView
             android:id="@+id/robot_image"
             android:layout_width="70dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-           />
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/robot_name"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:fontFamily="@font/adamina" />
+            app:fontFamily="@font/lato" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

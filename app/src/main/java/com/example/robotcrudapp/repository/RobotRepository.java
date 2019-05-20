@@ -22,13 +22,13 @@ public class RobotRepository {
     private static RobotRepository instance;
     private MyApi api;
     private static final String TAG = "RobotRepository";
-    private Observable observable;
+
 
 
     public Observable<RobotGetAllResonse> getObservableAllRobots(){
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         MyApi api = retrofit.create(MyApi.class);
-       return observable = api.getAllRobots().subscribeOn(Schedulers.io())
+       return  api.getAllRobots().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

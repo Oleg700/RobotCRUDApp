@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements ListRobotFragment
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
-
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
