@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.robotcrudapp.R;
 import com.example.robotcrudapp.model.Robot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RobotAdapter extends RecyclerView.Adapter<RobotAdapter.RobotViewHolder> {
-   private Context context;
-   private static List<Robot> robotList;
+    private Context context;
+    private static List<Robot> robotList;
 
     public RobotAdapter(Context context, List<Robot> robots) {
         this.context = context;
@@ -26,17 +26,10 @@ public class RobotAdapter extends RecyclerView.Adapter<RobotAdapter.RobotViewHol
     }
 
 
-
-
-
-    public static List<Robot> getRobotListStatic() {
-        return robotList;
-    }
-
     @NonNull
     @Override
     public RobotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-       View view = LayoutInflater.from(context).inflate(R.layout.text_view_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.text_view_layout, parent, false);
 
         return new RobotViewHolder(view);
     }
@@ -56,7 +49,8 @@ public class RobotAdapter extends RecyclerView.Adapter<RobotAdapter.RobotViewHol
     public int getItemCount() {
         return robotList.size();
     }
-    class RobotViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+
+    class RobotViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         private ImageView robotImage;
         private TextView robotName;
         private CardView cardView;
@@ -66,34 +60,24 @@ public class RobotAdapter extends RecyclerView.Adapter<RobotAdapter.RobotViewHol
 
             robotName = itemView.findViewById(R.id.robot_name);
             robotImage = itemView.findViewById(R.id.robot_image);
-            cardView  = itemView.findViewById(R.id.mCardView);
+            cardView = itemView.findViewById(R.id.mCardView);
             cardView.setOnCreateContextMenuListener(this);
         }
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select an Option");
-            menu.add(this.getAdapterPosition(),122, 2, "Update robot");
+            menu.add(this.getAdapterPosition(), 1, 1, "Update robot");
         }
     }
 
-public void removeItem(int position){
+    public void removeItem(int position) {
         robotList.remove(position);
         notifyDataSetChanged();
-}
+    }
 
-public int getIdByPosition(int position){
+    public int getIdByPosition(int position) {
         return robotList.get(position).getId();
-}
-
-
-public void updateList(List<Robot> newList){
-        robotList = new ArrayList<>();
-        robotList.addAll(newList);
-        notifyDataSetChanged();
-}
-
-
-
+    }
 
 }

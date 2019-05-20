@@ -18,26 +18,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class RobotRepository {
+public class RobotRepository{
     private static RobotRepository instance;
+
     private MyApi api;
+
+    private Retrofit retrofit;
+
     private static final String TAG = "RobotRepository";
-
-
-
-    public Observable<RobotGetAllResonse> getObservableAllRobots(){
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        MyApi api = retrofit.create(MyApi.class);
-       return  api.getAllRobots().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-    public  Observable<RobotResponse> getObservableRobotById(int id){
-        Retrofit retrofit = RetrofitClient.getRetrofitInstance();
-        MyApi api = retrofit.create(MyApi.class);
-        return  api.getRobotById(id).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 
 
 
@@ -50,8 +38,33 @@ public class RobotRepository {
     }
 
 
+    public void init(){
+        retrofit = RetrofitClient.getRetrofitInstance();
+        api = retrofit.create(MyApi.class);
+    }
+
+
+
+
+
+
+    public Observable<RobotGetAllResonse> getObservableAllRobots(){
+       return  api.getAllRobots().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public  Observable<RobotResponse> getObservableRobotById(int id){
+
+        return  api.getRobotById(id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+
+
+
     public void deleteRobotById(int id) {
-        api = RetrofitClient.getRetrofitInstance().create(MyApi.class);
+
         Call<Void> call = api.deleteRobot(id);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -68,7 +81,7 @@ public class RobotRepository {
 
 
     public void addRobot(Robot robot) {
-        api = RetrofitClient.getRetrofitInstance().create(MyApi.class);
+
         Call<RobotResponse> call = api.addRobot(robot);
         call.enqueue(new Callback<RobotResponse>() {
             @Override
@@ -87,7 +100,7 @@ public class RobotRepository {
     }
 
     public void updateRobot(int id, Robot robotToUpdate) {
-        api = RetrofitClient.getRetrofitInstance().create(MyApi.class);
+
         Call<RobotResponse> call = api.updateRobot(id, robotToUpdate);
 
         call.enqueue(new Callback<RobotResponse>() {

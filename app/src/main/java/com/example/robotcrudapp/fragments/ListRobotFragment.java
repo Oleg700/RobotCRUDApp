@@ -36,7 +36,7 @@ public class ListRobotFragment extends Fragment {
     private MainActivityViewModel mMainActivityViewModel;
     private FloatingActionButton fab;
     private OnMessageSendListener messageSendListener;
-    private Observable mObseravable;
+    private Observable mObservable;
     private Observer mObserver;
     private final String LOG = "ListRobotFragment";
 
@@ -55,9 +55,12 @@ public class ListRobotFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
+
+
         mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mMainActivityViewModel.init();
-        mObseravable = mMainActivityViewModel.getObservableAllRobots();
+        mObservable = mMainActivityViewModel.getObservableAllRobots();
         super.onCreate(savedInstanceState);
     }
 
@@ -72,7 +75,6 @@ public class ListRobotFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_robot, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         fab = view.findViewById(R.id.fab);
-
 
         mObserver = new Observer<RobotGetAllResonse>() {
             @Override
@@ -99,7 +101,7 @@ public class ListRobotFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         };
-        mObseravable.subscribe(mObserver);
+        mObservable.subscribe(mObserver);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +122,7 @@ public class ListRobotFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case 122:
+            case 1:
                 int id = adapter.getIdByPosition(item.getGroupId());
                 messageSendListener.sendRobotIdToUpdateFrag(String.valueOf(id));
                 return true;
