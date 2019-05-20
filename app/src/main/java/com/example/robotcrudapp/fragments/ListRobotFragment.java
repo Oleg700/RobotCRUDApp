@@ -55,9 +55,6 @@ public class ListRobotFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-
-
         mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mMainActivityViewModel.init();
         mObservable = mMainActivityViewModel.getObservableAllRobots();

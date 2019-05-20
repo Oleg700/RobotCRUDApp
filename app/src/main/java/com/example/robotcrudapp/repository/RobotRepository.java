@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 
 
 public class RobotRepository{
+
     private static RobotRepository instance;
 
     private MyApi api;
